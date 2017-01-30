@@ -5,8 +5,8 @@ module RocketPants
     SerializerWrapper = Struct.new(:serializer, :object) do
 
       def serializable_hash(options = {})
-        if Object.const_defined?('ActiveModel::SerializableResource')
-          ActiveModel::SerializableResource.new(object, options.merge(serializer: serializer)).serializable_hash
+        if Object.const_defined?('ActiveModelSerializers::SerializableResource')
+          ActiveModelSerializers::SerializableResource.new(object, options.merge(serializer: serializer)).serializable_hash
         else
           instance = serializer.new(object, options)
           if instance.respond_to?(:serializable_hash)
