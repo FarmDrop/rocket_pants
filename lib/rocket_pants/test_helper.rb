@@ -89,14 +89,10 @@ module RocketPants
     def process(action, *args)
       insert_action_controller_testing_into_base
 
-      if Rails::VERSION::MAJOR <= 4
-        # Rails 4 changes the method signature. In rails 3, parameters is the first argument.
-        # In Rails 4, it's the second.
-        if args.first.is_a?(String)
-          parameters = (args[1] ||= {})
-        else
-          parameters = (args[0] ||= {})
-        end
+      # Rails 4 changes the method signature. In rails 3, parameters is the first argument.
+      # In Rails 4, it's the second.
+      if args.first.is_a?(String)
+        parameters = (args[1] ||= {})
       else
         parameters = (args[0] ||= {})
       end
