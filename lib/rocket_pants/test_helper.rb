@@ -90,21 +90,17 @@ module RocketPants
       insert_action_controller_testing_into_base
 
       if args.first.is_a?(String)
-        parameters = (args[1] ||= { params: {}})
+        parameters = (args[1] ||= {})
       else
         parameters = (args[0] ||= {})
       end
 
       response.recycle_cached_body!
 
-      if Rails::VERSION::MAJOR <= 4
-        if _default_version.present? && parameters[:version].blank? && parameters['version'].blank?
-          parameters[:version] = _default_version
-        end
-      else
-        if _default_version.present? && parameters[:params][:version].blank?
-          parameters[:params][:version] = _default_version
-        end
+      hash = parameters[:params] ? parameters[:params] : parameters
+
+      if _default_version.present? && parameters[:version].blank?
+        hash[:version] = _default_version
       end
 
       super action, *args
