@@ -11,7 +11,7 @@ module RocketPants
       class_attribute :_default_version
 
       unless ActionDispatch::TestResponse < ResponseHelper
-        ActionDispatch::TestResponse.send :include, ResponseHelper
+        ActionDispatch::TestResponse.send :prepend, ResponseHelper
       end
     end
 
