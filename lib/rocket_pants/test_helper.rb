@@ -92,7 +92,9 @@ module RocketPants
       if args.first.is_a?(String)
         parameters = (args[1] ||= {})
       else
-        parameters = (args[0] ||= { params: {} })
+        args[0] ||= {}
+        args[0].reverse_merge!(params: {})
+        parameters = args[0]
       end
 
       response.recycle_cached_body!
